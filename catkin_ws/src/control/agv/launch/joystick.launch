@@ -6,10 +6,10 @@
     <arg name="joy_mapper_param_filename" default="joy_mapper_param.yaml"/>
     <arg name="pulse_generator_param_filename" default="pulse_generator_param.yaml"/>
 
-    <group ns="$(arg veh)" />
+    <group ns="$(arg veh)" >
         <!-- joy -->
         <node name="joy_node" pkg="joy" type="joy_node"  output="screen">
-            <rosparam command="load" file="$(find agv)/config/$(arg joy_node_param_filename).yaml"/>
+            <rosparam command="load" file="$(find agv)/config/$(arg joy_node_param_filename)"/>
         </node>
 
         <!-- joy_mapper -->
@@ -19,8 +19,10 @@
 
         <!--pulse_generator -->
         <remap from="pulse_generator_node/car_cmd" to="agv_joy_mapper_node/car_cmd"/>
-        <node name="pulse_generator_node" pkg="$(arg pkg_name)" type="$pulse_generator_node.py" output="screen" clear_params="true" required="true">
-            <rosparam command="load" file="$(find agv)/config/$(arg pulse_generator_param_filename)"/>
+        <node name="pulse_generator_node" pkg="agv_wheel_driver" type="pulse_generator_node.py" output="screen" clear_params="true" required="true">
+		<!-- <rosparam command="load" file="$(find agv)/config/$(arg pulsie_generator_param_filename)"/>  -->
+	    <param name="config_path" value="$(find agv)/config/" />
+            <param name="veh_name" value="$(arg veh)"/>
         </node>
     </group>
 </launch>

@@ -89,7 +89,7 @@ class AgvWheelDriverNode(object):
 		self.fname = fname_
 		if not os.path.isfile(fname_):
 			rospy.logwarn("[%s] %s does not exist. Using default.yaml." %(self.node_name,fname_))
-			fname_ = self.config_path + "default.yaml"
+			fname_ = self.config_path + "pulse_generator_param.yaml"
 
 		with open(fname_, 'r') as in_file:
 			try:
