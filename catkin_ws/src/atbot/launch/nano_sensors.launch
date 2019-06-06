@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    <arg name="use_joystick" default="true" />
+    <arg name="use_camera" default="true" />
+
+    <!-- Joystick -->
+    <group if="$(arg use_joystick)">
+        <include file="$(find agv)/launch/joystick.launch" />
+    </group>
+
+    <!-- RealSense D435 -->
+    <group if="$(arg use_camera)">
+        <include file="$(find realsense2_camera)/launch/rs_rgbd.launch" />
+        <node pkg="tf" type="static_transform_publisher" name="base_camera_broadcaster" args="0.115 0.045 0.284 0 0 0 base_link camera_link 50" />
+    </group>
+
+</launch>
