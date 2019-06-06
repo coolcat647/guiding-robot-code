@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    <arg name="use_lidar" default="true" />
+
+    <!-- Velodyne LiDAR -->
+    <group if="$(arg use_lidar)">
+        <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" >
+            <arg name="device_ip" value="192.168.1.191" />
+            <arg name="port" value="2368" />
+        </include>
+        <node pkg="tf" type="static_transform_publisher" name="base_velodyne_broadcaster" args="0 0 0.304 0 0 0 base_link velodyne 50" />
+    </group>
+    
+    <node pkg="tf" type="static_transform_publisher" name="base_camera_broadcaster" args="0.115 0.045 0.284 0 0 0 base_link camera_link 50" />
+ 
+</launch>

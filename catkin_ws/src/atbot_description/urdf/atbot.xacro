@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="atbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <property name="M_PI" value="3.14159265" />
+
+  <!-- Lidar mounting position -->
+  <xacro:arg name="lidar_enabled" default="true" />
+  <xacro:arg name="lidar_xyz" default="$(optenv ARBOT_LIDAR_XYZ 0.08 0 0.34)" />
+  <xacro:arg name="lidar_rpy" default="$(optenv ARBOT_LIDAR_RPY 0.0 0.0 0.0)" />
+
+  <!-- D435 mounting position -->
+  <xacro:arg name="d435_enabled" default="true" />
+  <xacro:arg name="d435_xyz" default="$(optenv ARBOT_D435_XYZ 0.18 0 0.32)" />
+  <xacro:arg name="d435_rpy" default="$(optenv ARBOT_D435_RPY 0.0 0.0 0.0)" />
+
+
+  <!-- Attach differential drive plugin -->
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>20</updateRate>
+      <leftJoint>lwheel_joint</leftJoint>
+      <rightJoint>rwheel_joint</rightJoint>
+      <wheelSeparation>0.30</wheelSeparation>
+      <wheelDiameter>0.18</wheelDiameter>
+      <torque>20</torque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+    </plugin>
+  </gazebo><!-- end of differential drive plugin -->
+
+  <!-- Attach LiDAR plugin -->
+  <xacro:if value="$(arg lidar_enabled)">
+    <xacro:include filename="$(find atbot_description)/urdf/accessories/VLP-16.urdf.xacro"/>
+    <VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" samples="1800" gpu="false" min_range="0" max_range="50.0" noise="0.01">
+      <origin xyz="$(arg lidar_xyz)" rpy="$(arg lidar_rpy)" />
+    </VLP-16>
+  </xacro:if>
+
+  <!-- Attach D435 plugin -->
+  <xacro:if value="$(arg d435_enabled)">
+    <xacro:include filename="$(find atbot_description)/urdf/accessories/_d435.urdf.xacro" />
+    <sensor_d435 parent="base_link">
+      <origin xyz="$(arg d435_xyz)" rpy="$(arg d435_rpy)" />
+    </sensor_d435>
+  </xacro:if>
+
+
+  <!-- base_link -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.00246443381679822 2.18659996287606E-17 0.169261888366116" rpy="0 0 0" />
+      <mass value="31.523120354057" />
+      <inertia
+        ixx="0.498505231974098"
+        ixy="-2.83765343112082E-17"
+        ixz="0.00576369992383154"
+        iyy="0.624288276975398"
+        iyz="-2.53955408802741E-17"
+        izz="0.514769338990891" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atbot_description/meshes/base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atbot_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link><!-- end of base_link -->
+
+  <!-- lwheel_link -->
+  <link name="lwheel_link">
+    <inertial>
+      <origin xyz="0 -0.025 0" py="0 0 0" />
+      <mass value="3.00138265833175" />
+      <inertia
+        ixx="0.00181709228209782"
+        ixy="-6.51779781176259E-36"
+        ixz="-1.9236686017034E-36"
+        iyy="0.00321694178989074"
+        iyz="5.87747175411144E-36"
+        izz="0.00181709228209782" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atbot_description/meshes/lwheel_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atbot_description/meshes/lwheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="lwheel_joint" type="continuous">
+    <origin xyz="0.09 0.195 0.02" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="lwheel_link" />
+    <axis xyz="0 -1 0" />
+  </joint><!-- end of lwheel -->
+
+  <!-- rwheel_link -->
+  <link name="rwheel_link">
+    <inertial>
+      <origin xyz="0 0.025 -3.46944695195361E-18" rpy="0 0 0" />
+      <mass value="3.00138265833175" />
+      <inertia
+        ixx="0.00181709228209782"
+        ixy="6.17628190706261E-22"
+        ixz="-4.0550547743528E-20"
+        iyy="0.00321694178989074"
+        iyz="3.08814095353132E-22"
+        izz="0.00181709228209782" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atbot_description/meshes/rwheel_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atbot_description/meshes/rwheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="rwheel_joint" type="continuous">
+    <origin xyz="0.09 -0.195 0.02" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="rwheel_link" />
+    <axis xyz="0 -1 0" />
+  </joint><!-- end of rwheel -->
+
+  <!-- connect_link -->
+  <link name="connect_link">
+    <inertial>
+      <origin xyz="0 -7.09462612139099E-19 -0.0144239451586787" rpy="0 0 0" />
+      <mass value="1.0175079644737231" />
+      <inertia
+        ixx="4.33130567920928E-06"
+        ixy="-1.93809223727159E-23"
+        ixz="-3.0651775301773E-22"
+        iyy="3.58276907819305E-06"
+        iyz="-1.5952513328309E-22"
+        izz="3.30558481776918E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atbot_description/meshes/connect_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atbot_description/meshes/connect_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="connect_joint" type="continuous">
+    <origin xyz="-0.095 0 -0.01" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="connect_link" />
+    <axis xyz="0 0 1" />
+  </joint><!-- end of connect_link -->
+
+  <!-- swheel_link -->
+  <link name="swheel_link">
+    <inertial>
+      <origin xyz="0 0 0.005" rpy="0 0 0" />
+      <mass value="1.00703716754404113" />
+      <inertia
+        ixx="4.56243029105334E-07"
+        ixy="9.9237209660737E-40"
+        ixz="-1.19980782612949E-43"
+        iyy="7.95199932476648E-07"
+        iyz="1.02903917823648E-39"
+        izz="4.56243029105334E-07" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atbot_description/meshes/swheel_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atbot_description/meshes/swheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="swheel_joint" type="continuous">
+    <origin xyz="0 -0.005 -0.035" rpy="0 0 0" />
+    <parent link="connect_link" />
+    <child link="swheel_link" />
+    <axis xyz="0 -1 0" />
+  </joint><!-- end of swheel -->
+</robot>

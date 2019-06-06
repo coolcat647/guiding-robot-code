@@ -3,7 +3,6 @@
 *.pth
 *.bag
 *.pcd
-*.png
 *.pyc
 *.swp
 *.swo
@@ -31,4 +30,4 @@ train-*
 catkin_ws/src/deep_learning/mobile_net_ssd/graphs
 *.gv
 *.svg
-
+CATKIN_IGNORE
