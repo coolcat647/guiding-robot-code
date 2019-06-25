@@ -5,8 +5,10 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Odometry1
+        - /Odometry1/Shape1
         - /Odometry1/Covariance1/Orientation1
-        - /TF1/Frames1/velodyne_base_link1
+        - /Path1
       Splitter Ratio: 0.397694528
     Tree Height: 747
   - Class: rviz/Selection
@@ -107,11 +109,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        connect_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         lwheel_link:
           Alpha: 1
           Show Axes: false
@@ -171,9 +168,9 @@ Visualization Manager:
         Axes Length: 1
         Axes Radius: 0.100000001
         Color: 255; 25; 0
-        Head Length: 0.300000012
+        Head Length: 0.100000001
         Head Radius: 0.100000001
-        Shaft Length: 1
+        Shaft Length: 0.5
         Shaft Radius: 0.0500000007
         Value: Arrow
       Topic: /odom
@@ -184,6 +181,8 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        base_footprint:
+          Value: true
         base_link:
           Value: true
         camera_bottom_screw_frame:
@@ -206,8 +205,6 @@ Visualization Manager:
           Value: false
         camera_right_ir_optical_frame:
           Value: false
-        connect_link:
-          Value: false
         lwheel_link:
           Value: false
         rwheel_link:
@@ -224,38 +221,100 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        base_link:
-          camera_bottom_screw_frame:
-            camera_link:
-              camera_depth_frame:
-                camera_color_frame:
-                  camera_color_optical_frame:
-                    {}
-                camera_depth_optical_frame:
-                  {}
-                camera_left_ir_frame:
-                  camera_left_ir_optical_frame:
-                    {}
-                camera_right_ir_frame:
-                  camera_right_ir_optical_frame:
-                    {}
-          connect_link:
-            swheel_link:
-              {}
-          lwheel_link:
-            {}
-          rwheel_link:
-            {}
-          velodyne_base_link:
-            velodyne:
-              {}
+        {}
       Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.00999999978
+      Style: Flat Squares
+      Topic: /scan
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 0.699999988
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /move_base/local_costmap/costmap
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 255; 25; 0
+      Enabled: true
+      Head Diameter: 0.300000012
+      Head Length: 0.200000003
+      Length: 0.300000012
+      Line Style: Billboards
+      Line Width: 0.100000001
+      Name: Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Radius: 0.0299999993
+      Shaft Diameter: 0.100000001
+      Shaft Length: 0.100000001
+      Topic: /move_base/DWAPlannerROS/local_plan
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 25; 255; 0
+      Enabled: true
+      Head Diameter: 0.300000012
+      Head Length: 0.200000003
+      Length: 0.300000012
+      Line Style: Lines
+      Line Width: 0.0299999993
+      Name: Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Radius: 0.0299999993
+      Shaft Diameter: 0.100000001
+      Shaft Length: 0.100000001
+      Topic: /move_base/DWAPlannerROS/global_plan
+      Unreliable: false
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_link
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -276,7 +335,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 6.1567688
+      Distance: 10
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -294,7 +353,7 @@ Visualization Manager:
       Pitch: 0.785398185
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.785398185
+      Yaw: 0.79039818
     Saved:
       - Class: rviz/Orbit
         Distance: 3.48741508
