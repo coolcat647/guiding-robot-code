@@ -3,10 +3,10 @@
 
   <!-- Import Rviz colors -->
   <xacro:include filename="$(find atbot_description)/urdf/materials.xacro" />
-  <!-- Inertia matrices -->
-  <xacro:include filename="$(find atbot_description)/urdf/macros.xacro" />
   <!-- Robot constants and properties -->
   <xacro:include filename="$(find atbot_description)/urdf/atbot_properties.xacro" />
+  <!-- Inertia matrices -->
+  <xacro:include filename="$(find atbot_description)/urdf/macros.xacro" />
   <!-- Gazebo aspects of the robot -->
 	<xacro:include filename="$(find atbot_description)/urdf/atbot.gazebo" />
 

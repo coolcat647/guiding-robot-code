@@ -15,6 +15,7 @@
       <robotNamespace>/atbot</robotNamespace>
       <robotParam>/robot_description</robotParam>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
 
@@ -69,7 +70,8 @@
       <updateRate>100</updateRate>
       <leftJoint>left_wheel_hinge</leftJoint>
       <rightJoint>right_wheel_hinge</rightJoint>
-      <wheelSeparation>${baseWidth-2*wheelOffsetY}</wheelSeparation>
+      <!-- <wheelSeparation>${baseWidth-2*wheelOffsetY}</wheelSeparation> -->
+      <wheelSeparation>${baseWidth}</wheelSeparation>
       <wheelDiameter>${2*wheelRadius}</wheelDiameter>
       <torque>20</torque>
       <commandTopic>atbot/cmd_vel</commandTopic>

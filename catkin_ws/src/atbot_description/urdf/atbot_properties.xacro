@@ -5,8 +5,8 @@
 	<xacro:property name="M_PI" value="3.1415926535897931"/>
 
 	<!-- Base properties -->
-	<xacro:property name="baseHeight" value="0.0623"/>
-	<xacro:property name="baseLength" value="0.198"/>
+	<xacro:property name="baseHeight" value="0.34"/>
+	<xacro:property name="baseLength" value="0.34"/>
 	<xacro:property name="baseWidth" value="0.27"/>
 	<xacro:property name="baseMass" value="0.15"/>
 
@@ -18,10 +18,11 @@
 	<!-- Differential-drive wheels properties -->
 	<xacro:property name="wheelWidth" value="0.026"/>
 	<xacro:property name="wheelRadius" value="0.032"/>
+	<!-- <xacro:property name="wheelRadius" value="0.08"/> -->
 	<xacro:property name="wheelMass" value="0.05"/>
 	<!-- <xacro:property name="wheelOffsetY" value="0.037"/> -->
 	<xacro:property name="wheelOffsetX" value="0.09"/>
-	<xacro:property name="wheelOffsetY" value="0.13"/>
+	<xacro:property name="wheelOffsetY" value="0.135"/>
 
 	<!-- Hokuyo laser properties -->
 	<xacro:property name="hokuyoMass" value="0.01"/>
@@ -51,6 +52,4 @@
 	<xacro:arg name="d435_xyz" default="$(optenv ARBOT_D435_XYZ 0.18 0 0.32)" />
 	<xacro:arg name="d435_rpy" default="$(optenv ARBOT_D435_RPY 0.0 0.0 0.0)" />
 
-	<!-- D435 mounting position -->
-	<xacro:property name="wheelOffsetY" value="0.037"/>
 </robot>

@@ -31,3 +31,5 @@ catkin_ws/src/deep_learning/mobile_net_ssd/graphs
 *.gv
 *.svg
 CATKIN_IGNORE
+
+tmp/
