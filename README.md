@@ -15,10 +15,14 @@ launch motor controller and D435 on Jetson Nano.
 #### Robot model
 The robot model is available for 3D LiDAR sensing and differential drive motor control now.
 ```bash
-PC$ roslaunch atbot_description gazebo.launch  
-PC$ roslaunch atbot_description rviz.launch
+$ roslaunch atbot_description gazebo.launch use_rviz:=true  
 ```
-
 ![image](figures/atbot_rviz.png)
+
+#### move_base
+```bash
+$ roslaunch pointcloud_to_laserscan pcl2laser.launch 
+$ roslaunch atbot move_base.launch
+```
 ![image](figures/atbot_movebase.png)
 
