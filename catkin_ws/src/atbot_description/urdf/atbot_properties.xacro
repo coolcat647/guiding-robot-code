@@ -44,7 +44,7 @@
 
 	<!-- Lidar mounting position -->
 	<xacro:arg name="lidar_enabled" default="true" />
-	<xacro:arg name="lidar_xyz" default="$(optenv ARBOT_LIDAR_XYZ 0.08 0 0.34)" />
+	<xacro:arg name="lidar_xyz" default="$(optenv ARBOT_LIDAR_XYZ 0.08 0 ${baseHeight + 0.03})" />
 	<xacro:arg name="lidar_rpy" default="$(optenv ARBOT_LIDAR_RPY 0.0 0.0 0.0)" />
 
 	<!-- D435 mounting position -->

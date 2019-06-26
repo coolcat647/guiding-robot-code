@@ -11,12 +11,12 @@
 	<xacro:include filename="$(find atbot_description)/urdf/atbot.gazebo" />
 
   <!-- Attach LiDAR plugin -->
-  <!-- <xacro:if value="$(arg lidar_enabled)">
+  <xacro:if value="$(arg lidar_enabled)">
     <xacro:include filename="$(find atbot_description)/urdf/accessories/VLP-16.urdf.xacro"/>
     <VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" samples="1800" gpu="false" min_range="0" max_range="50.0" noise="0.01">
       <origin xyz="$(arg lidar_xyz)" rpy="$(arg lidar_rpy)" />
     </VLP-16>
-  </xacro:if> -->
+  </xacro:if>
 
   <!-- Attach D435 plugin -->
   <!-- <xacro:if value="$(arg d435_enabled)">

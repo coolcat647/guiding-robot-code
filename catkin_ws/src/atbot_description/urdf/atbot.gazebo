@@ -76,7 +76,7 @@
       <torque>20</torque>
       <commandTopic>atbot/cmd_vel</commandTopic>
       <odometryTopic>atbot/odom</odometryTopic>
-      <odometryFrame>map</odometryFrame>
+      <odometryFrame>odom</odometryFrame>
       <robotBaseFrame>base_link</robotBaseFrame>
       
       <legacyMode>false</legacyMode>
