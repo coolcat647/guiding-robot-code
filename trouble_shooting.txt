@@ -1,0 +1,18 @@
+# If you got trouble in catkin_make process, please try to install the following ROS packages
+sudo apt-get install \
+ros-kinetic-amcl \
+ros-kinetic-tf2-sensor-msgs \
+ros-kinetic-move-base \
+ros-kinetic-dwa-local-planner \ 
+ros-kinetic-frontier-exploration \ 
+ros-kinetic-gmapping \
+ros-kinetic-map-server \
+ros-kinetic-velodyne-description \
+ros-kinetic-controller-manager -y
+
+# Please compile duckietown_msgs first.
+catkin_make --pkg duckietown_msgs
+catkin_make  
+
+# If you encounter "fatal error: pcap.h: No such file or directory", please type:
+sudo apt-get install libpcap0.8-dev

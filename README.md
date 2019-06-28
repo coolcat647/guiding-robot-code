@@ -8,9 +8,9 @@ launch motor controller and D435 on Jetson Nano.
 
 ## Gazebo
 #### Requirements:
- -  $ sudo apt-get install ros-indigo-joint-state-controller
- -  $ sudo apt-get install ros-indigo-effort-controllers
- -  $ sudo apt-get install ros-indigo-position-controllers
+ -  $ sudo apt-get install ros-kinetic-joint-state-controller
+ -  $ sudo apt-get install ros-kinetic-effort-controllers
+ -  $ sudo apt-get install ros-kinetic-position-controllers
 
 #### Robot model
 The robot model is available for 3D LiDAR sensing and differential drive motor control now.
