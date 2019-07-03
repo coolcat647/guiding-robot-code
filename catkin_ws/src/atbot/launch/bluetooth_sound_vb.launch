@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <arg name="mac" default="98:D3:31:F4:0D:6A"/>
-    <arg name="use_headset" default="false" doc="Bluetooth headset"/>
+    <arg name="mac" default="98:D3:31:F4:0D:6A" />
+    <arg name="veh" default="$(optenv HOSTNAME)" />
+    <arg name="use_headset" default="false" doc="Bluetooth headset" />
 
-    <arg name="pkg_name" value=""/>
-    <arg name="node_name" value="haptics_send_belt"/>
+    <group ns="$(arg veh)">
+	<!-- Joy node -->
+        <node name="joy_node" pkg="joy" type="joy_node" required="true"  />
 
-    <node name="haptics_whistband_node" pkg="haptics_send" type="haptics_send_node.py" output="screen" clear_params="true" >
-        <param name="bt" value="true"/>
-        <param name="mac" value="$(arg mac)"/>
-    </node>
+        <!-- Haptic whistband -->
+        <node name="haptics_whistband_node" pkg="haptics_send" type="haptics_send_node.py" output="screen" clear_params="true" >
+            <param name="bt" value="true"/>
+            <param name="mac" value="$(arg mac)"/>
+        </node>
 
-    <node name="joy_haptics_node" pkg="haptics_send" type="joy_haptics_node.py" output="screen" clear_params="true" />
+	<!-- Joystick control -->
+        <node name="joy_haptics_node" pkg="haptics_send" type="joy_haptics_node.py" output="screen" clear_params="true" />
 
-    <group if="$(arg use_headset)">
-        <node name="bluetooth_headset_node" pkg="sound_test" type="sound_play.py" output="screen" clear_params="true" />
+	<!-- Bluetooth headset -->
+        <group if="$(arg use_headset)">
+            <node name="bluetooth_headset_node" pkg="sound_test" type="sound_play.py" output="screen" clear_params="true" />
+        </group>
     </group>
 </launch>

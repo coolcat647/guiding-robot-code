@@ -12,8 +12,8 @@ class JoyMapperNode(object):
 		self.node_name = rospy.get_name()
 		rospy.loginfo("[%s] Initializing " %(self.node_name))
 		self.Joy = None
-		self.v_gain = rospy.get_param("~v_gain", 0.3)
-		self.omega_gain = rospy.get_param("~omega_gain", 0.5)
+		self.v_gain = rospy.get_param("~v_gain", 0.8)
+		self.omega_gain = rospy.get_param("~omega_gain", 0.8) 
 
 		# Publications
 		self.pub_car_cmd = rospy.Publisher("~car_cmd", Twist2DStamped, queue_size=1)
