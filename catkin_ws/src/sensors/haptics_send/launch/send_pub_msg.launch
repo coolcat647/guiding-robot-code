@@ -1,0 +1,16 @@
+<launch>
+
+<arg name="bt" default="true" doc="true for Bluetooth sending msgs"/>
+<arg name="mac" default="20:15:04:30:61:95"/>
+
+<arg name="pkg_name" value="haptics_send"/>
+<arg name="node_name" value="haptics_send_belt"/>
+
+<node name="$(arg node_name)" pkg="$(arg pkg_name)" type="$(arg node_name).py" output="screen" clear_params="true" >
+	<param name="bt" value="$(arg bt)"/>
+	<param name="mac" value="$(arg mac)"/>
+</node>
+
+    
+</launch>
+
