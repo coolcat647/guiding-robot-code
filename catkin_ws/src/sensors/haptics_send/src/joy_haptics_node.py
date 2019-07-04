@@ -39,10 +39,10 @@ class JoyHaptics(object):
         else:                                   # right 
             self.vb_msg.frequencies[2], self.vb_msg.intensities[2] = self.vb_pattern_select(round(abs(msg.axes[0]) * 2))    
 
+
         if msg.buttons[0] == 1:
             self.pub_vib.publish(self.vb_msg)
         else:
-
             self.pub_vib.publish(self.vb_msg_zero)
 
 
